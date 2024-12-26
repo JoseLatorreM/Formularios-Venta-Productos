@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <title>TemplateVentaPasajes</title>
+    <!-- Agregando enlaces para Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f3f3f3;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        center {
+            text-align: center;
+        }
+
+        h1, h2, h3 {
+            color: #f8f8f8;
+        }
+
+        table {
+            width: 80%; /* Ajusta el ancho de la tabla según tus necesidades */
+            margin-top: 20px;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+
+        table, th, td {
+            border: 2px solid #3498db; /* Grosor del borde reducido y color azul */
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: left;
+            display: block;
+            width: 100%;
+        }
+
+        th {
+            background-color: #3498db;
+            color: #fff;
+        }
+
+        .no-data-message {
+            color: #EBB716;
+        }
+        h4 {
+            text-align: center;
+            color: #555;
+        }
+
+        .BotonQloFeo,
+        .BotonCalc,
+        .BotonQloBonito {
+            background-color: #009dff80;
+            color: #0111f5;
+            border: none;
+            padding: 10px 20px;
+            margin-top: 10px;
+            cursor: pointer;
+        }
+
+    </style>
+</head>
+<script type="text/javascript">
+    function calcular() {
+        var cantidad = parseInt(document.getElementById("id_Cantidad").value);
+        var valorUnitario = parseFloat(document.getElementById("id_ValorVenta").value);
+        var totalPagar = cantidad * valorUnitario;
+        var Uti = parseInt(document.getElementById("id_ValorCosto").value)
+        var dcto = 0;
+            if (Uti) {
+                dcto = Uti * 0.2;
+            }
+        var totalFinal = totalPagar;
+        document.getElementById("id_Total").value = totalFinal;
+        document.getElementById("id_Utilidad").value = dcto;
+    }
+    </script>
+<body>
+    <form method="post" action="{% url 'modificarDato' rut=objeto.Rut %}">
+        {% csrf_token %}
+        {{ form.as_p }}
+<center>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+            <table class="table table-bordered">
+                
+                    <th>
+                        <h1>Detalles de la Compra</h1>
+                    </th>
+
+                <tr>
+                    <th>Rut</th>
+                    <td><input type="text" name="Rut" readonly value="{{ objeto.Rut }}" required></td>
+                    <th>Producto</th>
+                    <td><input type="text" name="Producto" value="{{ objeto.Producto }}" required></td>
+                    <th>Valor Costo</th>
+                    <td><input type="text" id="id_ValorCosto" name="Valor_Costo" value="{{ objeto.Valor_Costo }}" required></td>
+                    <th>Utilidad</th>
+                    <td><input type="text" id="id_Utilidad" name="Utilidad" readonly value="{{ objeto.Utilidad }}" required></td>
+                    <th>Valor Venta</th>
+                    <td><input type="text" id="id_ValorVenta" name="Valor_Venta" value="{{ objeto.Valor_Venta }}" required></td>
+                    <th>Cantidad</th>
+                    <td><input type="text" id="id_Cantidad" name="Cantidad" value="{{ objeto.Cantidad }}" required></td>
+                    <th>Total</th>
+                    <td><input type="text" id="id_Total" name="Total" readonly value="{{ objeto.Total }}" required></td>
+                    <td><h4>Si Deseas cambiar la cantidad de productos o el valor venta tienes que re hacer el calculo
+                     de lo contrario solo Guarda</h4></td>
+                     <center><td><h3> <span style="color: red;">EL BOTON BORRAR BORRA TODO EL REGISTRO Y TE REDIGIRIRA A LA LISTA</span></h3></td></center>
+                    <td><center><button type="submit" value="Grabar datos" class="BotonQloFeo" onclick='calcular()'>Modificar Datos</button>
+                    <input type="button" value="Re-Calcular" class="BotonCalc" onclick='calcular()'>
+                    <a href="{% url 'borrar' id=objeto.id %}">
+                        <button type="button" class="BotonQloBonito">Borrar</button>
+                    </a></td></center>
+                </tr>
+            </table>
+        </form>
+</center>
+</body>
+
+</html>

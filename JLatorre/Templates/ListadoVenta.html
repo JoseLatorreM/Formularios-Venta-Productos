@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>TemplateVentaPasajes</title>
+    <!-- Agregando enlaces para Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #daaeae54;
+        }
+
+        center {
+            text-align: center;
+            margin-top: 50px;
+        }
+
+        h1, h2, h3 {
+            color: #16B7EB;
+        }
+
+        table {
+            width: 100%;
+            margin-top: 20px;
+            border-collapse: collapse;
+        }
+
+        table, th, td {
+            border: 2px solid rgb(0, 0, 0);
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+
+        caption {
+            margin-bottom: 10px;
+        }
+
+        .no-data-message {
+            color: #EBB716;
+        }
+        h4{
+         text-align: center;
+         color: rgba(172, 101, 201, 0.76);
+        }
+        .BotonQloBonito {
+            background-color: #ff0b1f80;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            margin-top: 10px;
+            cursor: pointer;
+        }
+
+        .contenedor-destacado {
+        background-color: #00a6ff; 
+        padding: 10px; 
+        border-radius: 5px;
+        }
+
+        button {
+            background-color: #009dff80;
+            color: #0111f5;
+            border: none;
+            padding: 10px 20px;
+            margin-top: 10px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+<center>
+        <h1>Listado Venta de Productos</h1>
+        <form method="post" action="{% url 'buscar_por_pk' %}" style="display: inline-block;">
+            {% csrf_token %}
+<div class="contenedor-destacado">
+<h6><mark> Se debe ingresar el Rut tal cual se muestra <br>
+Ejemplo: xx.xxx.xxx-x</mark></div>
+</h6>
+            <label for="pk">Buscar Rut:</label>
+            <input type="text" name="pk" id="pk" required>
+            <button type="submit">Buscar</button>
+        </form>
+<a href="{% url 'Formulario' %}" style="display: inline-block">
+    <button>Formulario</button>
+</a>
+            <table class="table table-bordered">
+               <caption><h4>Listado de Ventas</h4></caption>
+                <thead class="thead-dark">
+                    <tr>
+                        <th>ID</th>
+                        <th>Rut</th>
+                        <th>Producto</th>
+                        <th>Valor Costo</th>
+                        <th>Utilidad</th>
+                        <th>Valor Venta</th>
+                        <th>Cantidad</th>
+                        <th>Total</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for Comp in SacarDatos %}
+                        <tr>
+                            <td>{{ Comp.id }}</td>
+                            <td>{{ Comp.Rut }}</td>
+                            <td>{{ Comp.Producto }}</td>
+                            <td>{{ Comp.Valor_Costo }}</td>
+                            <td>{{ Comp.Utilidad }}</td>
+                            <td>{{ Comp.Valor_Venta }}</td>
+                            <td>{{ Comp.Cantidad }}</td>
+                            <td>{{ Comp.Total }}</td>
+                            <td>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            <caption><h4>Desde la Base De Datos</h4></caption>
+    
+</center>
+</body>
+
+</html>
